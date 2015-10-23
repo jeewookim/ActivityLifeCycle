@@ -1,5 +1,6 @@
 package com.example.a2016jkim.activitylifecycle;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -11,7 +12,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+
     }
 
     @Override
@@ -58,11 +63,35 @@ public class MainActivity extends AppCompatActivity {
         int temp = mSettings.getInt("onCreate", onC) +1;
         save("onCreate", temp);
         TextView textView = (TextView) findViewById(R.id.Create);
-        //textView.setText("onCreate called: " + onC + " times");
         textView.setText("onCreate called: " + mSettings.getInt("onCreate", 0) + " times");
-    }
 
-    @Override
+        Button button = (Button) findViewById(R.id.forward);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ActivityDos.class);
+                startActivity(intent);
+            }
+
+        });
+
+        final Spinner dropdown  = (Spinner) findViewById(R.id.number_choice);
+        ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(this, R.array.number_choice, android.R.layout.simple_spinner_item);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dropdown.setAdapter(arrayAdapter);
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String s = (String)dropdown.getSelectedItem();
+                Intent intent =new Intent(MainActivity.this,ActivityDos.class);
+                intent.putExtra("choice",s);
+                startActivity(intent);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });}
+
+        @Override
     public void onStart() {
         SharedPreferences mSettings = MainActivity.this.getSharedPreferences("Settings", 0);
         super.onStart();
@@ -94,11 +123,11 @@ public class MainActivity extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.Pause);
         // textView.setText("onPause called: " + onP + " times");
         textView.setText("onPause called: " + mSettings.getInt("onPause", 0) + " times");
-    }
+        }
 
-    @Override
-    public void onStop() {
-        SharedPreferences mSettings = MainActivity.this.getSharedPreferences("Settings", 0);
+        @Override
+        public void onStop () {
+            SharedPreferences mSettings = MainActivity.this.getSharedPreferences("Settings", 0);
         super.onStop();
         int temp = mSettings.getInt("onStop", onStp) +1;
         save("onStop", temp);
