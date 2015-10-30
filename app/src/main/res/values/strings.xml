@@ -6,6 +6,7 @@
 
     <string name="dropdown">MainActivity.com - Dropdown</string>
     <string-array name="number_choice">
+        <item>pick a value</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>

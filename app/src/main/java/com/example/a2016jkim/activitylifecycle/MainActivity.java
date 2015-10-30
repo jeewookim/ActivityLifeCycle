@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     int onStp;
     int onRest;
     int onD;
-
+    String selection;
 
 
     @Override
@@ -55,24 +55,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         SharedPreferences mSettings = MainActivity.this.getSharedPreferences("Settings", 0);
+
+        //mSettings.edit().clear().commit();
+
         int temp = mSettings.getInt("onCreate", onC) +1;
         save("onCreate", temp);
         TextView textView = (TextView) findViewById(R.id.Create);
         textView.setText("onCreate called: " + mSettings.getInt("onCreate", 0) + " times");
-
-        Button button = (Button) findViewById(R.id.forward);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ActivityDos.class);
-                startActivity(intent);
-            }
-
-        });
 
         final Spinner dropdown  = (Spinner) findViewById(R.id.number_choice);
         ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(this, R.array.number_choice, android.R.layout.simple_spinner_item);
@@ -81,15 +76,38 @@ public class MainActivity extends AppCompatActivity {
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String s = (String)dropdown.getSelectedItem();
-                Intent intent =new Intent(MainActivity.this,ActivityDos.class);
-                intent.putExtra("choice",s);
-                startActivity(intent);
+                selection = (String) dropdown.getSelectedItem();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                Log.i("nothing passed", "");
             }
-        });}
+        });
+
+        Button button = (Button) findViewById(R.id.forward);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ActivityDos.class);
+                if (!selection.equals("pick a value")) {
+                    intent.putExtra("choice", selection);
+                }
+                startActivity(intent);
+            }
+
+        });
+
+
+        TextView userV = (TextView) findViewById(R.id.DosValue);
+        Intent new_val_intent = getIntent();
+        String userChoice = new_val_intent.getStringExtra("userChoice");
+        Log.i("something typed :", "" + new_val_intent.hasExtra(userChoice));
+        if (new_val_intent.hasExtra(userChoice)){
+           //int uv = new_val_intent.getIntExtra(userChoice,0);
+           userV.setText("User value: " + userChoice);
+           Log.i("value received : ", "" +userChoice);
+        }
+
+    }
 
         @Override
     public void onStart() {
@@ -132,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         int temp = mSettings.getInt("onStop", onStp) +1;
         save("onStop", temp);
         TextView textView = (TextView) findViewById(R.id.Stop);
-        //textView.setText("onStop called: " + onStp + " times");
+            //textView.setText("onStop called: " + onStp + " times");
         textView.setText("onStop called: " + mSettings.getInt("onStop", 0) + " times");
     }
 

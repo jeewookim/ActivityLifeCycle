@@ -72,5 +72,12 @@
         android:layout_alignParentRight = "true"
         android:spinnerMode="dropdown"/>
 
+    <TextView android:text="User Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/DosValue"
+        android:layout_below = "@id/Destroy"
+        android:textSize = "20dp"/>
+
 
 </RelativeLayout>
