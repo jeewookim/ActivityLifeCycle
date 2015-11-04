@@ -9,7 +9,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main" tools:context=".MainActivity">
 
-    <TextView android:text="Create"
+    <!--<TextView android:text="Create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/Create"
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/Destroy"
         android:layout_below = "@id/Restart"
-        android:textSize = "20dp"/>
+        android:textSize = "20dp"/> -->
 
     <Button
         android:layout_width="wrap_content"
@@ -76,8 +76,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/DosValue"
-        android:layout_below = "@id/Destroy"
         android:textSize = "20dp"/>
+
+    <TextView android:text="Contact Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ContactName"
+        android:textSize = "20dp"
+        android:layout_marginTop = "140dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop = "200dp"
+        android:layout_marginLeft= "140dp"
+        android:id = "@+id/goContact"
+        android:text = "Go Contacts"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop = "300dp"
+        android:layout_marginLeft= "140dp"
+        android:id = "@+id/gonewapp"
+        android:text = "Go New App"/>
 
 
 </RelativeLayout>

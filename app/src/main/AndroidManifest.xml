@@ -17,12 +17,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".ActivityDos"
             android:label="BlankActivity"
             android:theme="@style/AppTheme.NoActionBar" >
-
+            <uses-permission android:name="android.permission.READ_CONTACTS"/>
         </activity>
     </application>
 
